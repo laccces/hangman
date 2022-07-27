@@ -9,9 +9,7 @@ word.each do |word|
   end
 end
 
-puts @game_words
+array_index = Random.rand(0...6976)
 
-#make the list into an array
-
-#use a random number to pick a word
+computer_word = @game_words[array_index]
 
