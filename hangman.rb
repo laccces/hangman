@@ -1,7 +1,9 @@
 puts "Dictionary loaded."
 
 @i = 0
+@n = 1
 @game_words = []
+@game_board = []
 
 def choose_word
   word = File.readlines('google-10000-english-no-swears.txt')
@@ -18,13 +20,28 @@ end
 
 choose_word
 
-letter_count = @computer_word.length 
+@letter_count = @computer_word.length 
+
+#need to generate a blank array of the same legth of the word
 
 p @computer_word.split(%r{\s*})
 
+def blank_board
+  while @n < @letter_count
+    @game_board << "_"
+    @n += 1
+  end
+end
 
+blank_board
+
+p @game_board
+
+#need to match letters
 
 puts "Guess a letter."
+
+letter_guess = gets.chomp
 
 #while @i < 9
 
