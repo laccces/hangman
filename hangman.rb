@@ -2,6 +2,7 @@ puts "Dictionary loaded."
 
 @i = 0
 @n = 1
+@x = 0
 @game_words = []
 @game_board = []
 
@@ -41,8 +42,17 @@ p @game_board
 
 puts "Guess a letter."
 
-letter_guess = gets.chomp
+@letter_guess = gets.chomp
 
-#while @i < 9
+def letter_checker
+  while @x < @letter_count
+    if @computer_word[@x].eql?(@letter_guess)
+      @game_board[@x] = @letter_guess
+    end
+  @x += 1
+  end
+end
 
-#end
+letter_checker
+
+p @game_board
