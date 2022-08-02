@@ -1,8 +1,7 @@
-puts "Dictionary loaded."
-
 @i = 0
 @n = 1
 @x = 0
+@y = 0
 @game_words = []
 @game_board = []
 
@@ -23,8 +22,6 @@ choose_word
 
 @letter_count = @computer_word.length 
 
-#need to generate a blank array of the same legth of the word
-
 p @computer_word.split(%r{\s*})
 
 def blank_board
@@ -37,8 +34,6 @@ end
 blank_board
 
 p @game_board
-
-#need to match letters
 
 puts "Guess a letter."
 
@@ -53,6 +48,22 @@ def letter_checker
   end
 end
 
+
+
 letter_checker
 
 p @game_board
+
+while @y < 9
+  puts "Guess a letter."
+  
+  @letter_guess = gets.chomp
+
+  letter_checker
+
+  p @game_board
+
+  break if @game_board == @computer_word
+
+  @y += 1
+end
