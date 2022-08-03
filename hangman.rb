@@ -1,12 +1,14 @@
 require "yaml"
 
 # starting values
-@i = 0
-@n = 1
-@x = 0
-@y = 0
-@game_words = []
-@game_board = []
+def initialize
+  @i = 0
+  @n = 1
+  @x = 0
+  @y = 0
+  @game_words = []
+  @game_board = []
+end
 
 # load dictionary and computer guess
 def choose_word
@@ -56,7 +58,7 @@ def letter_checker
   end
 end
 
-# need to return something if the guess is correct
+# need to return something if the guess is correct - if incorrect guess (no equals) then += 1. Until 8. 
 
 letter_checker
 
@@ -87,12 +89,13 @@ end
   
 puts "Do you want to start a new game[1], or load a game in progress[2]?"
 
-gets.chomp
+game_choice = gets.chomp
 
-if 1...
-Start as normal
+if game_choice == 1
+  initialize
+end
 
-if 2
+if game_choice == 2
 Load YAML
 
 Saving
