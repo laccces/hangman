@@ -1,3 +1,5 @@
+require "yaml"
+
 # starting values
 @i = 0
 @n = 1
@@ -78,4 +80,23 @@ end
 # if correct guess then you don't lose a mark
 
 # if incorrect guess then you lose a mark
+
+# need to add ability to save - YAML
+
+=begin
+  
+puts "Do you want to start a new game[1], or load a game in progress[2]?"
+
+gets.chomp
+
+if 1...
+Start as normal
+
+if 2
+Load YAML
+
+Saving
+Say "If you wish to save the game and come back to it later at any point, write 'Exit' instead of guessing a letter."
+
+end
 
