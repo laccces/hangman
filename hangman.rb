@@ -2,9 +2,10 @@ require "yaml"
 
 # starting values
 def initialize
-  @i = 0
-  @n = 1
+  @empty_board = 1
   @x = 0
+  @wrong_guesses = 0
+  @correct_guess = 0
   @y = 0
   @game_words = []
   @game_board = []
@@ -24,6 +25,8 @@ def choose_word
   @computer_word = @game_words[array_index]
 end
 
+initialize
+
 choose_word
 
 # get number of characters in word and split into an array
@@ -33,9 +36,9 @@ p @computer_word.split(%r{\s*})
 
 # generate a blank board
 def blank_board
-  while @n < @letter_count
+  while @empty_board < @letter_count
     @game_board << "_"
-    @n += 1
+    @empty_board += 1
   end
 end
 
@@ -52,30 +55,39 @@ def letter_checker
   while @x < @letter_count
     if @computer_word[@x].eql?(@letter_guess)
       @game_board[@x] = @letter_guess
-
+      @correct_guess += 1
     end
-  @x += 1
+    @x += 1
+  end
+  if @correct_guess == 0
+    @wrong_guesses += 1
   end
 end
 
-# need to return something if the guess is correct - if incorrect guess (no equals) then += 1. Until 8. 
-
-letter_checker
-
 p @game_board
 
-# game logic - needs updating
-while @y < 9
+
+while @wrong_guesses < 9
   puts "Guess a letter."
   
   @letter_guess = gets.chomp
 
   letter_checker
 
+  if @correct_guess > 1
+    puts "Congrats, that letter was right!"
+  end
+
+  if wrong_guesses > 1
+    puts "Sorry, that was wrong. You only have #{@wrong_guesses - 8} guesses remaining."
+  end
+
+  @correct_guess = 0
+
   p @game_board
 
   break if @game_board == @computer_word
-
+  break if @wrong_guesses == 8
   
 end
 
@@ -103,3 +115,4 @@ Say "If you wish to save the game and come back to it later at any point, write 
 
 end
 
+=end
