@@ -81,3 +81,11 @@ while @wrong_guesses <= 8
   break if @game_board == @computer_word
 end
 
+if @game_board == @computer_word
+  puts "You win!"
+end
+
+if @wrong_guesses == 8
+  puts "Sorry, you lose."
+end
+
