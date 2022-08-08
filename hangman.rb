@@ -44,6 +44,7 @@ def letter_checker
     @x += 1
   end
   if @correct_guess == 0
+    @wrong_guess = "yes"
     @wrong_guesses += 1
   end
 end
@@ -53,9 +54,11 @@ def wrap_up
     puts "Congrats, that letter was right!"
   end
 
-  if @wrong_guesses >= 1
+  if @wrong_guess == "yes"
     puts "Sorry, that was wrong. You can get it wrong #{8 - @wrong_guesses} more times before it's game over."
   end
+
+  @wrong_guess = "no"
 end
 
 def user_guess
@@ -66,14 +69,15 @@ end
 def play_game
   user_guess
   letter_checker
+  @x = 0
   wrap_up
-  
-  @correct_guess = 0
-  
+  p @letter_guess
   p @game_board
 end
 
 while @wrong_guesses <= 8
   play_game
+  @correct_guess = 0
   break if @game_board == @computer_word
 end
+
