@@ -5,6 +5,7 @@
 @y = 0
 @game_words = []
 @game_board = []
+@previous_guesses = []
 
 def choose_word
   word = File.readlines('google-10000-english-no-swears.txt')
@@ -23,7 +24,9 @@ choose_word
 
 @letter_count = @computer_word.length 
 
-p @computer_word.split(%r{\s*})
+@computer_word = @computer_word.split(%r{\s*})
+
+p @computer_word
 
 def blank_board
   while @empty_board < @letter_count
@@ -63,19 +66,32 @@ end
 
 def user_guess
   puts "Guess a letter."
-  @letter_guess = gets.chomp
+  @letter_guess = gets.chomp.downcase
+  
+  if @letter_guess.length > 1
+    puts "Please only enter one character. If you enter more than one character next guess, it'll count as a wrong guess."
+    @letter_guess = gets.chomp.downcase
+  end
+  
+  if @previous_guesses.include?(@letter_guess)
+    puts "You've guessed that before. Guess again. If you guess the same thing again, it'll count as a wrong guess."
+    @letter_guess = gets.chomp.downcase
+  end
+
+  @previous_guesses << @letter_guess
+  
 end
 
 def play_game
   user_guess
+  puts "Your guess was #{@letter_guess}"
   letter_checker
   @x = 0
   wrap_up
-  p @letter_guess
   p @game_board
 end
 
-while @wrong_guesses <= 8
+while @wrong_guesses < 8
   play_game
   @correct_guess = 0
   break if @game_board == @computer_word
