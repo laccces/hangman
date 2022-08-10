@@ -45,12 +45,16 @@ def wrap_up
 end
 
 def user_guess
-  puts "Guess a letter."
+  puts "Guess a letter, or enter 1 to save your game."
   @letter_guess = gets.chomp.downcase
   
   if @letter_guess.length > 1
     puts "Please only enter one character. If you enter more than one character next guess, it'll count as a wrong guess."
     @letter_guess = gets.chomp.downcase
+  end
+
+  if @letter_guess == '1'
+    save_game
   end
   
   if @previous_guesses.include?(@letter_guess)
@@ -60,5 +64,32 @@ def user_guess
 
   @previous_guesses << @letter_guess
   
+end
+
+def save_game
+  Dir.mkdir 'output' unless Dir.exist? 'output'
+  @filename = "last_save.yaml"
+  File.open("output/#{@filename}", 'w') { |file| file.write save_to_yaml }
+  puts "Game saved."
+end
+
+def save_to_yaml
+  YAML.dump(
+    'word' => @computer_word,
+    'wrong_guesses' => @wrong_guesses,
+    'game_board' => @game_board,
+    'previous_guesses' => @previous_guesses,
+    'letter_count' => @letter_count,
+    'empty_board' => @empty_board
+  )
+end
+
+def load_saved_file
+  file = YAML.safe_load(File.read("output/last_save.yaml"))
+  @computer_word = file['word']
+  @game_board = file['game_board']
+  @previous_guesses = file['previous_guesses']
+  @letter_count = file['letter_count']
+  @empty_board = file['empty_board']
 end
 

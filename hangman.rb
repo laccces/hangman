@@ -50,7 +50,31 @@ if start_choice == '1'
 end
 
 if start_choice == '2'
-  puts "not built yet"
+  load_saved_file
+  p @game_board
+  
+  def play_game
+    user_guess
+    puts "Your guess was #{@letter_guess}"
+    letter_checker
+    @x = 0
+    wrap_up
+    p @game_board
+  end
+
+  while @wrong_guesses < 8
+    play_game
+    @correct_guess = 0
+    break if @game_board == @computer_word
+  end
+  
+  if @game_board == @computer_word
+    puts "You win!"
+  end
+  
+  if @wrong_guesses == 8
+    puts "Sorry, you lose."
+  end
 end
 
 
