@@ -1,0 +1,24 @@
+---
+word:
+- p
+- o
+- w
+- e
+- r
+- e
+- d
+wrong_guesses: 0
+game_board:
+- p
+- _
+- _
+- e
+- _
+- e
+- _
+previous_guesses:
+- t
+- e
+- p
+letter_count: 8
+empty_board: 8
